@@ -128,19 +128,57 @@
         <!--Alarme-->
         <scene sceneID="Xai-dq-a5e">
             <objects>
-                <tableViewController title="Alarme" id="qfS-d1-QB6" sceneMemberID="viewController">
+                <tableViewController title="Alarme" id="qfS-d1-QB6" customClass="AlarmTableViewController" customModule="Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dI3-vU-ezW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="usG-Tu-0uv">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AlarmCell" rowHeight="80" id="usG-Tu-0uv" customClass="AlarmTableViewCell" customModule="Clock" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="usG-Tu-0uv" id="1Dt-C3-JD5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VV-NA-MDq">
+                                            <rect key="frame" x="16" y="11" width="86" height="36"/>
+                                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdfghjkl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpj-VR-oHr">
+                                            <rect key="frame" x="16" y="44" width="71" height="23"/>
+                                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="19"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nl1-Pt-Z6v">
+                                            <rect key="frame" x="308" y="24" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="changeState:" destination="usG-Tu-0uv" eventType="valueChanged" id="Rxt-sb-eSs"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="3VV-NA-MDq" secondAttribute="trailing" constant="273" id="0Gw-By-NEz"/>
+                                        <constraint firstAttribute="bottom" secondItem="Nl1-Pt-Z6v" secondAttribute="bottom" constant="24.5" id="AzJ-G0-jlX"/>
+                                        <constraint firstItem="3VV-NA-MDq" firstAttribute="leading" secondItem="1Dt-C3-JD5" secondAttribute="leading" constant="16" id="MN9-Om-pQx"/>
+                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="bpj-VR-oHr" secondAttribute="trailing" constant="316" id="MrO-9u-7gT"/>
+                                        <constraint firstAttribute="bottom" secondItem="bpj-VR-oHr" secondAttribute="bottom" constant="12.5" id="YOD-AC-Nlb"/>
+                                        <constraint firstItem="Nl1-Pt-Z6v" firstAttribute="top" secondItem="1Dt-C3-JD5" secondAttribute="top" constant="24" id="gVf-WU-ezL"/>
+                                        <constraint firstItem="bpj-VR-oHr" firstAttribute="leading" secondItem="1Dt-C3-JD5" secondAttribute="leading" constant="16" id="lff-vi-4no"/>
+                                        <constraint firstItem="3VV-NA-MDq" firstAttribute="top" secondItem="1Dt-C3-JD5" secondAttribute="top" constant="11" id="nTV-lG-xeE"/>
+                                        <constraint firstItem="bpj-VR-oHr" firstAttribute="top" secondItem="3VV-NA-MDq" secondAttribute="bottom" constant="-3" id="p2O-P2-nZi"/>
+                                        <constraint firstItem="Nl1-Pt-Z6v" firstAttribute="leading" relation="lessThanOrEqual" secondItem="3VV-NA-MDq" secondAttribute="trailing" constant="208" id="sjL-fy-xsk"/>
+                                        <constraint firstAttribute="trailing" secondItem="Nl1-Pt-Z6v" secondAttribute="trailing" constant="18" id="w6j-zW-xLB"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="alarmSwitch" destination="Nl1-Pt-Z6v" id="8j0-IL-kZf"/>
+                                    <outlet property="hourLabel" destination="3VV-NA-MDq" id="cpg-ry-QJP"/>
+                                    <outlet property="infoLabel" destination="bpj-VR-oHr" id="KcC-E8-4sM"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -152,7 +190,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O8N-iA-6Is" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="417" y="-740"/>
+            <point key="canvasLocation" x="416.80000000000001" y="-740.7796101949026"/>
         </scene>
     </scenes>
 </document>
