@@ -9,7 +9,10 @@
 import UIKit
 
 class AlarmTableViewController: UITableViewController {
-
+    
+    @IBOutlet var alarmTableView: UITableView!
+    var hourArray:[String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +21,14 @@ class AlarmTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let today = Date()
+        let calendar = Calendar.current
+        
+        for _ in 0...10{
+            self.hourArray.append("\(calendar.component(.hour, from: today)):\(calendar.component(.minute, from:today))")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,17 +40,42 @@ class AlarmTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return self.hourArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmCell") as! AlarmTableViewCell
-
-        // Configure the cell...
-
+        cell.hourLabel.text = self.hourArray[indexPath.item]
         return cell
     }
-
+    
+    @IBAction func editAlarms(_ sender: UIBarButtonItem) {
+        alarmTableView.isEditing = !alarmTableView.isEditing
+        sender.title = alarmTableView.isEditing ? "Done" : "Edit"
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            self.deleteCell(at: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "delete") { (action, view, completion) in
+            self.deleteCell(at: indexPath)
+            completion(true)
+        }
+        deleteAction.backgroundColor = .red
+        deleteAction.title = "delete"
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipeActions
+    }
+    
+    func deleteCell(at indexPath:IndexPath){
+        self.hourArray.remove(at: indexPath.item)
+        alarmTableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

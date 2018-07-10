@@ -28,5 +28,13 @@ class AlarmTableViewCell: UITableViewCell {
     //This function makes an alarm either available or not
     @IBAction func changeState(_ sender: Any) {
         print("State: \(alarmSwitch.isOn ? "on" : "off")")
+        
+        if alarmSwitch.isOn{
+            hourLabel.alpha = 1.0
+            infoLabel.alpha = 1.0
+        }else{
+            hourLabel.alpha = 0.5
+            infoLabel.alpha = 0.5
+        }
     }
 }
