@@ -26,7 +26,9 @@ class AlarmTableViewController: UITableViewController {
         let calendar = Calendar.current
         
         for _ in 0...10{
-            self.hourArray.append("\(calendar.component(.hour, from: today)):\(calendar.component(.minute, from:today))")
+            let hour:Int = calendar.component(.hour, from: today)
+            let minute:Int = calendar.component(.minute, from:today)
+            self.hourArray.append("\((hour<10) ? "0\(hour)" : "\(hour)"):\((minute<10) ? "0\(minute)" : "\(minute)")")
         }
         
     }
@@ -49,11 +51,19 @@ class AlarmTableViewController: UITableViewController {
         return cell
     }
     
+    /*MARK: Alarm Switch
+        This function is responsable for turning alarms on and off.
+     */
     @IBAction func editAlarms(_ sender: UIBarButtonItem) {
         alarmTableView.isEditing = !alarmTableView.isEditing
         sender.title = alarmTableView.isEditing ? "Done" : "Edit"
+        for rowNumber in 0..<self.hourArray.count{
+            let cell = alarmTableView.cellForRow(at:IndexPath(row: rowNumber, section: 0)) as? AlarmTableViewCell
+            cell?.alarmSwitch.isHidden = !(cell?.alarmSwitch.isHidden)!
+            cell?.accessoryType = alarmTableView.isEditing ? UITableViewCellAccessoryType.disclosureIndicator:UITableViewCellAccessoryType.none
+        }
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             self.deleteCell(at: indexPath)
@@ -122,3 +132,4 @@ class AlarmTableViewController: UITableViewController {
     */
 
 }
+
